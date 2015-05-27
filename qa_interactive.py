@@ -15,6 +15,9 @@ def main(argv):
         
         # Get words
         question = question.split(' ');
+        question = [argv[1] + s for s in question]
+
+        print question
 
         v1 = raw_input('Choice 1:')
         v2 = raw_input('Choice 2:')
@@ -26,7 +29,7 @@ def main(argv):
         s2 = m.n_similarity(question, [v2])
         s3 = m.n_similarity(question, [v3])
         s4 = m.n_similarity(question, [v4])
-        s = min(s1, s2, s3, s4)
+        s = max(s1, s2, s3, s4)
 
         if s == s1:
             print "The answer is: " ,v1
@@ -38,5 +41,8 @@ def main(argv):
             print "The answer is: " ,v4
 
 if __name__ == "__main__":
-    main(sys.argv[1:])
+    if len(sys.argv) < 3:
+        print "Usage: qa_interactive model.bin append"
+    else: 
+        main(sys.argv[1:])
 
