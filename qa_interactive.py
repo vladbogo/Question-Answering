@@ -41,8 +41,10 @@ def main(argv):
             print "The answer is: " ,v4
 
 if __name__ == "__main__":
-    if len(sys.argv) < 3:
-        print "Usage: qa_interactive model.bin append"
-    else: 
-        main(sys.argv[1:])
+    argv = sys.argv
+    if len(sys.argv) < 2:
+        sys.exit("Usage: qa_interactive model.bin [append]")
+    elif len(sys.argv) == 2:
+        argv.append("")
+    main(argv[1:])
 
