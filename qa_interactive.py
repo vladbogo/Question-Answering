@@ -1,5 +1,6 @@
 import sys
 from gensim.models import Word2Vec
+from nltk.corpus import stopwords
 
 def main(argv):
     # TODO load model
@@ -13,22 +14,25 @@ def main(argv):
         if question == 'EXIT':
             break
         
+
+        stops = set(stopwords.words("english"))
         # Get words
-        question = question.split(' ');
+        question = question.lower().split(' ');
+        question = [w for w in question if not w in stops]
         question = [argv[1] + s for s in question]
 
-        print question
+        #print question
 
-        v1 = raw_input('Choice 1:')
-        v2 = raw_input('Choice 2:')
-        v3 = raw_input('Choice 3:')
-        v4 = raw_input('Choice 4:')
+        v1 = raw_input('Choice 1:').lower().split(' ')
+        v2 = raw_input('Choice 2:').lower().split(' ')
+        v3 = raw_input('Choice 3:').lower().split(' ')
+        v4 = raw_input('Choice 4:').lower().split(' ')
 
         # Compute similarity
-        s1 = m.n_similarity(question, [v1])
-        s2 = m.n_similarity(question, [v2])
-        s3 = m.n_similarity(question, [v3])
-        s4 = m.n_similarity(question, [v4])
+        s1 = m.n_similarity(question, v1)
+        s2 = m.n_similarity(question, v2)
+        s3 = m.n_similarity(question, v3)
+        s4 = m.n_similarity(question, v4)
         s = max(s1, s2, s3, s4)
 
         if s == s1:
